@@ -1,6 +1,7 @@
 package net.archasmiel;
 
 import java.util.List;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.Stream;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 		List<String> names = List.of("Kolya", "Tolya", "Dolya", "Volya", "Rolya", "Lolya");
 		String[] array = {"1, 2, 0", "4, 5"};
 		Stream<Integer> str1 = Stream.of(1, 2, 3, 4, 5);
-		Stream<Integer> str2 = Stream.of(6, 7, 8, 9, 10, 11, 12, 13);
+		Stream<Integer> str2 = Stream.of(6, 7, 8, 9, 10);
 
 		System.out.println(StreamHelper.oddNames(names));
 		System.out.println(StreamHelper.sortList(names));

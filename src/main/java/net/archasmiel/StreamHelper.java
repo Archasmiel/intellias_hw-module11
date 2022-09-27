@@ -90,17 +90,22 @@ public class StreamHelper {
 		Iterator<T> iterator2 = Objects.requireNonNull(second).iterator();
 
 		Iterable<T> iterable = () -> new Iterator<>() {
-			boolean started = true;
+			boolean isFirst = true;
 
 			@Override
 			public boolean hasNext() {
-				return (started && iterator1.hasNext()) || (!started && iterator2.hasNext());
+				return (iterator1.hasNext() && iterator2.hasNext()) ||
+					(!iterator1.hasNext() && iterator2.hasNext() && !isFirst);
 			}
 
 			@Override
 			public T next() {
-				T ret = (started) ? iterator1.next() : iterator2.next();
-				started = !started;
+				if (!hasNext()) {
+					throw new NoSuchElementException();
+				}
+
+				T ret = (isFirst ? iterator1 : iterator2).next();
+				isFirst = !isFirst;
 				return ret;
 			}
 		};
