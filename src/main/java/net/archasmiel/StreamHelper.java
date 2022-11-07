@@ -36,13 +36,16 @@ public class StreamHelper {
 	public static List<String> sortList(List<String> names) {
 		return names.stream()
 			.map(String::toUpperCase)
-			.sorted(Comparator.reverseOrder()).toList();
+			.sorted(Comparator.reverseOrder())
+			.toList();
 	}
 
 	public static String parseArray(String[] numbers) {
 		return Stream.of(numbers)
-			.flatMap(Pattern.compile(", ")::splitAsStream)
-			.sorted().collect(Collector.of(
+			.flatMap(Pattern.compile(", *")::splitAsStream)
+			.map(Integer::parseInt)
+			.sorted()
+			.collect(Collector.of(
 				StringBuilder::new,
 				(builder, o) -> builder.append(o).append(", "),
 				StringBuilder::append,
